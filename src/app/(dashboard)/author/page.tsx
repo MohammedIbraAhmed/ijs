@@ -12,17 +12,16 @@ export default async function AuthorDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="container mx-auto space-y-8">
-        {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold text-gradient">
-            Welcome, {session.user.name}!
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Author Dashboard - Manage your manuscript submissions
-          </p>
-        </div>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="space-y-2">
+        <h1 className="text-4xl font-bold text-gradient">
+          Welcome, {session.user.name}!
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          Author Dashboard - Manage your manuscript submissions
+        </p>
+      </div>
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -103,27 +102,26 @@ export default async function AuthorDashboard() {
           </Card>
         </div>
 
-        {/* User Info Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Account Information</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Name:</span>
-              <span className="font-medium">{session.user.name}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Email:</span>
-              <span className="font-medium">{session.user.email}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Role:</span>
-              <span className="font-medium capitalize">{session.user.role}</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* User Info Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Account Information</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Name:</span>
+            <span className="font-medium">{session.user.name}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Email:</span>
+            <span className="font-medium">{session.user.email}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Role:</span>
+            <span className="font-medium capitalize">{session.user.role}</span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
