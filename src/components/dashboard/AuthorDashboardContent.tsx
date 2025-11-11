@@ -151,28 +151,30 @@ export function AuthorDashboardContent() {
             ) : (
               <div className="space-y-4">
                 {manuscripts.map((manuscript) => (
-                  <div
+                  <Link
                     key={manuscript._id}
-                    className="p-4 border rounded-lg hover:bg-surface transition-colors"
+                    href={`/manuscript/${manuscript._id}`}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <h4 className="font-medium mb-1 line-clamp-2">{manuscript.title}</h4>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Badge variant="outline" className="capitalize">
-                            {manuscript.manuscriptType.replace('-', ' ')}
-                          </Badge>
-                          <span>•</span>
-                          <span>
-                            {format(new Date(manuscript.createdAt), 'MMM d, yyyy')}
-                          </span>
+                    <div className="p-4 border rounded-lg hover:bg-surface transition-colors cursor-pointer">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <h4 className="font-medium mb-1 line-clamp-2">{manuscript.title}</h4>
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Badge variant="outline" className="capitalize">
+                              {manuscript.manuscriptType.replace('-', ' ')}
+                            </Badge>
+                            <span>•</span>
+                            <span>
+                              {format(new Date(manuscript.createdAt), 'MMM d, yyyy')}
+                            </span>
+                          </div>
                         </div>
+                        <Badge className={getStatusColor(manuscript.status)}>
+                          {manuscript.status.replace('_', ' ')}
+                        </Badge>
                       </div>
-                      <Badge className={getStatusColor(manuscript.status)}>
-                        {manuscript.status.replace('_', ' ')}
-                      </Badge>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
