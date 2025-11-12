@@ -179,7 +179,7 @@ export function ReviewerDashboardContent() {
                   return (
                     <Link
                       key={manuscript._id}
-                      href={`/manuscript/${manuscript._id}`}
+                      href={`/reviewer/review/${manuscript._id}`}
                     >
                       <div className="p-4 border rounded-lg hover:bg-surface transition-colors cursor-pointer">
                         <div className="flex items-start justify-between gap-4">
@@ -278,7 +278,7 @@ export function ReviewerDashboardContent() {
               {completedManuscripts.slice(0, 5).map((manuscript) => (
                 <Link
                   key={manuscript._id}
-                  href={`/manuscript/${manuscript._id}`}
+                  href={`/reviewer/review/${manuscript._id}`}
                 >
                   <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-surface transition-colors cursor-pointer">
                     <div className="flex-1">
