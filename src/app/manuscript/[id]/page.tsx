@@ -126,10 +126,13 @@ export default function ManuscriptDetailPage() {
                   Assign Reviewers
                 </Button>
               </Link>
-              {manuscript.status === 'revision_required' && (
-                <Button variant="default" className="gradient-primary text-white w-full">
-                  Make Decision
-                </Button>
+              {(manuscript.status === 'under_review' ||
+                manuscript.status === 'revision_required') && (
+                <Link href={`/editor/decision/${manuscript._id}`}>
+                  <Button variant="default" className="gradient-primary text-white w-full">
+                    Make Decision
+                  </Button>
+                </Link>
               )}
             </div>
           )}
