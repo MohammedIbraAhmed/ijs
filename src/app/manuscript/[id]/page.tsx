@@ -118,6 +118,21 @@ export default function ManuscriptDetailPage() {
               <span>Submitted {format(new Date(manuscript.createdAt), 'MMM d, yyyy')}</span>
             </div>
           </div>
+          {/* Editor Actions */}
+          {session?.user?.role === 'editor' && manuscript.status !== 'draft' && (
+            <div className="flex flex-col gap-2">
+              <Link href={`/editor/assign-reviewers/${manuscript._id}`}>
+                <Button variant="outline" className="w-full">
+                  Assign Reviewers
+                </Button>
+              </Link>
+              {manuscript.status === 'revision_required' && (
+                <Button variant="default" className="gradient-primary text-white w-full">
+                  Make Decision
+                </Button>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Abstract */}
@@ -154,6 +169,49 @@ export default function ManuscriptDetailPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Reviewers */}
+        {manuscript.reviewers && manuscript.reviewers.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Reviewers ({manuscript.reviewers.length})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {manuscript.reviewers.map((reviewer: any, index: number) => {
+                  const getReviewStatusColor = (status: string) => {
+                    const colors: Record<string, string> = {
+                      invited: 'bg-accent-500',
+                      accepted: 'bg-warning-500',
+                      declined: 'bg-secondary-500',
+                      completed: 'bg-success',
+                    };
+                    return colors[status] || 'bg-secondary-500';
+                  };
+
+                  return (
+                    <div key={index} className="flex items-start justify-between p-3 border rounded-lg">
+                      <div>
+                        <p className="font-medium">{reviewer.user?.name || 'Anonymous'}</p>
+                        {session?.user?.role === 'editor' && reviewer.user?.email && (
+                          <p className="text-sm text-muted-foreground">{reviewer.user.email}</p>
+                        )}
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Invited {format(new Date(reviewer.invitedAt), 'MMM d, yyyy')}
+                          {reviewer.deadline &&
+                            ` • Due ${format(new Date(reviewer.deadline), 'MMM d, yyyy')}`}
+                        </p>
+                      </div>
+                      <Badge className={getReviewStatusColor(reviewer.status)}>
+                        {reviewer.status}
+                      </Badge>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Keywords */}
         <Card>
